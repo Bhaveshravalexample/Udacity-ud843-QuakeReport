@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!-- Layout for a single list item-->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/list_item"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:padding="@dimen/activity_horizontal_margin"
+    android:background="?android:attr/selectableItemBackground" >
+
+    <TextView
+        android:id="@+id/magnitude"
+        style="@style/ListItemTextViewStyle"
+        android:layout_width="0dp"
+        android:layout_weight="1"
+        tools:text="7.2"/>
+
+    <TextView
+        android:id="@+id/place"
+        style="@style/ListItemTextViewStyle"
+        android:layout_width="0dp"
+        android:layout_weight="1"
+        tools:text="San Francisco"/>
+
+    <TextView
+        android:id="@+id/date"
+        style="@style/ListItemTextViewStyle"
+        android:layout_width="0dp"
+        android:layout_weight="1"
+        tools:text="Feb 2, 2016"/>
+
+</LinearLayout>

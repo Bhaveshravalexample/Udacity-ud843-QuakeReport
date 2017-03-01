@@ -13,11 +13,11 @@ public class Earthquake {
     private Date mDate = null;
 
     /**
-     * Create a new Earthquake object
+     * Constructs a new {@link Earthquake} a new object.
      *
-     * @param magnitude     Magnitude of the earthquake (float)
-     * @param place         Nearest place from the earthquake (String)
-     * @param date          Date when the earthquake occurs (Date)
+     * @param magnitude     Magnitude of the earthquake
+     * @param place         Place of the earthquake
+     * @param date          Date when the earthquake happened
      */
     public Earthquake (double magnitude, String place, Date date) {
         mMagnitude = magnitude;
@@ -26,27 +26,21 @@ public class Earthquake {
     }
 
     /**
-     * Return the magnitude of the earthquake
-     *
-     * @return  (double)
+     * Returns the magnitude of the earthquake.
      */
     public double getMagnitude() {
         return mMagnitude;
     }
 
     /**
-     * Return the nearest place from the earthquake
-     *
-     * @return  (String)
+     * Returns the place from the earthquake.
      */
     public String getPlace() {
         return mPlace;
     }
 
     /**
-     * Return the date when the earthquake occurs
-     *
-     * @return  (Date)
+     * Returns the date when the earthquake occurs
      */
     public Date getDate() {
         return mDate;

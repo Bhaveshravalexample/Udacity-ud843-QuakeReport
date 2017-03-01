@@ -27,6 +27,8 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
+import static com.oz_heng.apps.android.quakereport.Helper.stringToDate;
+
 public class EarthquakeActivity extends AppCompatActivity {
 
     private static final String LOG_TAG = EarthquakeActivity.class.getName();
@@ -46,32 +48,15 @@ public class EarthquakeActivity extends AppCompatActivity {
         earthquakes.add(new Earthquake(4.9, "Rio de Janeiro", stringToDate("Aug 19, 2012")));
         earthquakes.add(new Earthquake(1.6, "Paris", stringToDate("Oct 13, 2011")));
 
+        // Find a reference to the {@link ListView} in the layout
         ListView earthquakeListView = (ListView) findViewById(R.id.list);
+
+        // Create a new adapter that takes the list of earthquakes as input
         EarthquakeAdapter earthquakeAdapter = new EarthquakeAdapter(this, earthquakes);
+
+        // Set the adapter on the {@link ListView} so the list can be populated in
+        // the user interface
         earthquakeListView.setAdapter(earthquakeAdapter);
     }
 
-    /**
-     * Convert a String to a Date
-     *
-     * @param stringDate a (String) date following the format "MM dd, yyyy"
-     * @return (Date)
-     */
-    public Date stringToDate(String stringDate) {
-
-        DateFormat df = new SimpleDateFormat("MMM dd, yyyy");
-        Date date = null;
-
-        if ( !stringDate.equals("") ) {
-            try {
-                date = df.parse(stringDate);
-                Log.v(LOG_TAG, "stringToDate() - date: " + df.format(date));
-            } catch (ParseException e) {
-                Log.e(LOG_TAG, "stringToDate() - unable to parse the String param ");
-                e.printStackTrace();
-            }
-        }
-
-        return date;
-    }
 }

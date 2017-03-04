@@ -5,29 +5,42 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:background="?android:attr/selectableItemBackground"
     android:orientation="horizontal"
-    android:padding="@dimen/activity_horizontal_margin"
-    android:background="?android:attr/selectableItemBackground" >
+    android:padding="@dimen/activity_horizontal_margin">
 
     <TextView
         android:id="@+id/magnitude"
         style="@style/ListItemTextViewStyle"
         android:layout_width="0dp"
         android:layout_weight="1"
-        tools:text="7.2"/>
+        tools:text="7.2" />
 
     <TextView
         android:id="@+id/place"
         style="@style/ListItemTextViewStyle"
         android:layout_width="0dp"
         android:layout_weight="1"
-        tools:text="San Francisco"/>
+        tools:text="San Francisco" />
 
-    <TextView
-        android:id="@+id/date"
-        style="@style/ListItemTextViewStyle"
+    <LinearLayout
         android:layout_width="0dp"
+        android:layout_height="wrap_content"
         android:layout_weight="1"
-        tools:text="Feb 2, 2016"/>
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/date"
+            style="@style/ListItemTextViewStyle"
+            android:layout_width="match_parent"
+            tools:text="Feb 2, 2016" />
+
+        <TextView
+            android:id="@+id/time"
+            style="@style/ListItemTextViewStyle"
+            android:layout_width="match_parent"
+            tools:text="3:00 PM" />
+
+    </LinearLayout>
 
 </LinearLayout>

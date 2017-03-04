@@ -8,12 +8,10 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 
-import static com.oz_heng.apps.android.quakereport.Helper.dateToString;
+import static com.oz_heng.apps.android.quakereport.Helper.dateTOTimeString;
+import static com.oz_heng.apps.android.quakereport.Helper.dateToDateString;
 
 /**
  * Created by Pack Heng on 1/03/17
@@ -64,7 +62,10 @@ public class EarthquakeAdapter extends ArrayAdapter<Earthquake> {
         place.setText(earthquake.getPlace());
 
         TextView date = (TextView) itemView.findViewById(R.id.date);
-        date.setText(dateToString(earthquake.getDate()));
+        date.setText(dateToDateString(earthquake.getDate()));
+
+        TextView time = (TextView) itemView.findViewById(R.id.time);
+        time.setText(dateTOTimeString(earthquake.getDate()));
 
         return itemView;
     }

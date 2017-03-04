@@ -10,14 +10,14 @@ import java.util.Date;
 public class Earthquake {
     private double mMagnitude = 0;
     private String mPlace = "";
-    private Date mDate = null;
+    private Date mDate;
 
     /**
      * Constructs a new {@link Earthquake} a new object.
      *
      * @param magnitude     Magnitude of the earthquake
      * @param place         Place of the earthquake
-     * @param date          Date when the earthquake happened
+     * @param date          Unix time when the earthquake happened
      */
     public Earthquake (double magnitude, String place, Date date) {
         mMagnitude = magnitude;
@@ -40,7 +40,7 @@ public class Earthquake {
     }
 
     /**
-     * Returns the date when the earthquake occurs
+     * Returns the Unix time when the earthquake occurs
      */
     public Date getDate() {
         return mDate;

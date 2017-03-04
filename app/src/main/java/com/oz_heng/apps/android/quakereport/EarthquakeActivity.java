@@ -17,17 +17,11 @@ package com.oz_heng.apps.android.quakereport;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
-import android.widget.ArrayAdapter;
+
 import android.widget.ListView;
 
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 
-import static com.oz_heng.apps.android.quakereport.Helper.stringToDate;
 
 public class EarthquakeActivity extends AppCompatActivity {
 

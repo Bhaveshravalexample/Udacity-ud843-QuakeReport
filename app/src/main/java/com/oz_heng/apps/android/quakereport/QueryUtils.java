@@ -9,8 +9,6 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.Date;
 
-import static com.oz_heng.apps.android.quakereport.Helper.stringToDate;
-
 /**
  * Helper methods related to requesting and receiving earthquake data from USGS.
  */
@@ -64,7 +62,7 @@ public final class QueryUtils {
 
                 double magnitude = properties.getDouble("mag");
                 String place = properties.getString("place");
-                Date date = new Date( properties.getInt("time") );
+                Date date = new Date( properties.getLong("time") );
 
                 earthquakes.add( new Earthquake(magnitude, place, date) );
             }

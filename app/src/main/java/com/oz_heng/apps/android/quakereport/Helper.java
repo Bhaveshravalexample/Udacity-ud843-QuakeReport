@@ -18,22 +18,23 @@ import java.util.Date;
 public class Helper {
     private static final String LOG_TAG = Helper.class.getName();
 
+    private static DateFormat dateFormat = new SimpleDateFormat("MMM dd, yyyy");
+    private static DateFormat timeFormat = new SimpleDateFormat("h:mm a");
 
     /**
-     * Returns a Date object from a String input
+     * Return a {@link Date} object from a String input
      *
      * @param stringDate a String input following the format "MM dd, yyyy"
      * @return a Date object, or null if the String input is empty
      */
     public static Date stringToDate(String stringDate) {
 
-        DateFormat df = new SimpleDateFormat("MMM dd, yyyy");
         Date date = null;
 
         if (!stringDate.equals("")) {
             try {
-                date = df.parse(stringDate);
-                Log.v(LOG_TAG, "stringToDate() - date: " + df.format(date));
+                date = dateFormat.parse(stringDate);
+                Log.v(LOG_TAG, "stringToDate() - date: " + dateFormat.format(date));
             } catch (ParseException e) {
                 Log.e(LOG_TAG, "stringToDate() - unable to parse the String param ");
                 e.printStackTrace();
@@ -44,20 +45,27 @@ public class Helper {
     }
 
     /**
-     * Returns a {@link String} object from a {@link Date} input.
+     * Return a string in the format "MMM dd, yyyy" from the {@link Date} param, or
+     * an empty string if the date param is null
      *
-     * @param date: a {@link Date} input
-     * @return a {@link String} object, or an empty string if the input is null
+     * @param date: a {@link Date} param
+     * @return a string
      */
-    public static String dateToString(Date date) {
-        String stringDate = "";
+    public static String dateToDateString(Date date) {
 
-        if (date != null) {
-            DateFormat df = new SimpleDateFormat("MMM dd, yyyy");
-            stringDate = df.format(date);
-        }
+        return date != null ? dateFormat.format(date) : "";
+    }
 
-        return stringDate;
+    /**
+     * Return a string in the format "h:mm a" from the {@link Date} param, or
+     * an empty string if the date param is null
+     *
+     * @param date: a {@link Date} param
+     * @return a string
+     */
+    public static String dateTOTimeString(Date date) {
+
+        return date != null ? timeFormat.format(date) : "";
     }
 
 }

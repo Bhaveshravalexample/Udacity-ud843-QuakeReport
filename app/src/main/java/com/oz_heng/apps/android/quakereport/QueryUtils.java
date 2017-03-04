@@ -50,18 +50,21 @@ public final class QueryUtils {
         // Catch the exception so the app doesn't crash, and print the error message to the logs.
         try {
 
-            // TODO: Parse the response given by the SAMPLE_JSON_RESPONSE string and
-            // build up a list of Earthquake objects with the corresponding data.
+            // Crate a JSONObject from the SAMPLE_JSON_RESPONSE string
+            JSONObject baseJsonResponse = new JSONObject(SAMPLE_JSON_RESPONSE);
 
-            JSONObject joResponse = new JSONObject(SAMPLE_JSON_RESPONSE);
+            // Extract the JSONArray associated with the key called "features"
+            // which represents a list of features (or eathquakes
+            JSONArray features = baseJsonResponse.getJSONArray("features");
 
-            JSONArray jaFeatures = joResponse.getJSONArray("features");
-            for (int i = 0; i < jaFeatures.length(); i++) {
-                JSONObject joProperties = jaFeatures.getJSONObject(i).getJSONObject("properties");
+            // For each item of the "features" array. reach the JSONObject "properties" and extract
+            // the magnitude, place and date data, and add them into the earthquake list.
+            for (int i = 0; i < features.length(); i++) {
+                JSONObject properties = features.getJSONObject(i).getJSONObject("properties");
 
-                double magnitude = joProperties.getDouble("mag");
-                String place = joProperties.getString("place");
-                Date date = new Date( joProperties.getInt("time") );
+                double magnitude = properties.getDouble("mag");
+                String place = properties.getString("place");
+                Date date = new Date( properties.getInt("time") );
 
                 earthquakes.add( new Earthquake(magnitude, place, date) );
             }

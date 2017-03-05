@@ -16,29 +16,47 @@
         android:layout_weight="1"
         tools:text="7.2" />
 
-    <TextView
-        android:id="@+id/place"
-        style="@style/ListItemTextViewStyle"
+    <LinearLayout
         android:layout_width="0dp"
-        android:layout_weight="1"
-        tools:text="San Francisco" />
+        android:layout_height="wrap_content"
+        android:layout_weight="2"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/location_offset"
+            style="@style/ListItemTextViewStyle"
+            android:layout_width="match_parent"
+            tools:text="74km NW of" />
+
+        <TextView
+            android:id="@+id/primary_location"
+            style="@style/ListItemTextViewStyle"
+            android:layout_width="match_parent"
+            android:textStyle="bold"
+            tools:text="San Francisco" />
+
+    </LinearLayout>
 
     <LinearLayout
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_weight="1"
+        android:layout_weight="2"
         android:orientation="vertical">
 
         <TextView
             android:id="@+id/date"
             style="@style/ListItemTextViewStyle"
             android:layout_width="match_parent"
+            android:layout_gravity="end"
+            android:textAlignment="textEnd"
             tools:text="Feb 2, 2016" />
 
         <TextView
             android:id="@+id/time"
             style="@style/ListItemTextViewStyle"
             android:layout_width="match_parent"
+            android:layout_gravity="end"
+            android:textAlignment="textEnd"
             tools:text="3:00 PM" />
 
     </LinearLayout>

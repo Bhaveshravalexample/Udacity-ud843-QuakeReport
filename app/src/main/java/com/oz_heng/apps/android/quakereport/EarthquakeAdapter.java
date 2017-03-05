@@ -2,6 +2,7 @@ package com.oz_heng.apps.android.quakereport;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -26,6 +27,7 @@ import static com.oz_heng.apps.android.quakereport.Helper.dateToDateString;
  * to be displayed to the user.
  */
 public class EarthquakeAdapter extends ArrayAdapter<Earthquake> {
+    private static final String LOG_TAG = EarthquakeAdapter.class.getName();
 
     /**
      * Constructs a new {@link EarthquakeAdapter}.
@@ -58,8 +60,13 @@ public class EarthquakeAdapter extends ArrayAdapter<Earthquake> {
         TextView magnitude = (TextView) itemView.findViewById(R.id.magnitude);
         magnitude.setText(String.format("%1$.1f", earthquake.getMagnitude()));
 
-        TextView place = (TextView) itemView.findViewById(R.id.place);
-        place.setText(earthquake.getPlace());
+        TextView locationOffset = (TextView) itemView.findViewById(R.id.location_offset);
+        locationOffset.setText(earthquake.getLocationOffset());
+        Log.d(LOG_TAG,"getView() - earthquake.getLocationOffset(): " + earthquake.getLocationOffset());
+
+        TextView primaryLocation = (TextView) itemView.findViewById(R.id.primary_location);
+        primaryLocation.setText(earthquake.getPrimaryLocation());
+        Log.d(LOG_TAG, "getView - earthquake.getPrimaryLocation(): " + earthquake.getPrimaryLocation());
 
         TextView date = (TextView) itemView.findViewById(R.id.date);
         date.setText(dateToDateString(earthquake.getDate()));

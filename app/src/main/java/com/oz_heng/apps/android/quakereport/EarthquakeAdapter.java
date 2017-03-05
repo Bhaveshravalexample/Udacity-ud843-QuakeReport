@@ -11,7 +11,7 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
-import static com.oz_heng.apps.android.quakereport.Helper.dateTOTimeString;
+import static com.oz_heng.apps.android.quakereport.Helper.dateToTimeString;
 import static com.oz_heng.apps.android.quakereport.Helper.dateToDateString;
 
 /**
@@ -84,7 +84,7 @@ public class EarthquakeAdapter extends ArrayAdapter<Earthquake> {
         date.setText(dateToDateString(earthquake.getDate()));
 
         TextView time = (TextView) itemView.findViewById(R.id.time);
-        time.setText(dateTOTimeString(earthquake.getDate()));
+        time.setText(dateToTimeString(earthquake.getDate()));
 
         return itemView;
     }

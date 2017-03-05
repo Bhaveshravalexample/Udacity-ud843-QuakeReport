@@ -63,7 +63,7 @@ public class Helper {
      * @param date: a {@link Date} param
      * @return a string
      */
-    public static String dateTOTimeString(Date date) {
+    public static String dateToTimeString(Date date) {
 
         return date != null ? timeFormat.format(date) : "";
     }

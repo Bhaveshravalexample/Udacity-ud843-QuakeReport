@@ -11,16 +11,22 @@
 
     <TextView
         android:id="@+id/magnitude"
-        style="@style/ListItemTextViewStyle"
-        android:layout_width="0dp"
-        android:layout_weight="1"
+        android:layout_width="36dp"
+        android:layout_height="36dp"
+        android:layout_gravity="center_vertical"
+        android:background="@drawable/magnitude_circle"
+        android:fontFamily="sans-serif-medium"
+        android:gravity="center"
+        android:textColor="@android:color/white"
+        android:textSize="16sp"
         tools:text="7.2" />
 
     <LinearLayout
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_weight="2"
-        android:orientation="vertical">
+        android:layout_weight="1"
+        android:orientation="vertical"
+        android:layout_marginLeft="@dimen/activity_horizontal_margin">
 
         <TextView
             android:id="@+id/location_offset"
@@ -40,7 +46,7 @@
     <LinearLayout
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_weight="2"
+        android:layout_weight="1"
         android:orientation="vertical">
 
         <TextView

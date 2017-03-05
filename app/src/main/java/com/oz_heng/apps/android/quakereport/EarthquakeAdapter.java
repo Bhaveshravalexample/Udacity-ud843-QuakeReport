@@ -13,6 +13,7 @@ import java.util.ArrayList;
 
 import static com.oz_heng.apps.android.quakereport.Helper.dateToTimeString;
 import static com.oz_heng.apps.android.quakereport.Helper.dateToDateString;
+import static com.oz_heng.apps.android.quakereport.Helper.doubleToOneDecimalString;
 
 /**
  * Created by Pack Heng on 1/03/17
@@ -61,7 +62,7 @@ public class EarthquakeAdapter extends ArrayAdapter<Earthquake> {
 
         // Display the eartquake information to the associated text views
         TextView magnitude = (TextView) itemView.findViewById(R.id.magnitude);
-        magnitude.setText(String.format("%1$.1f", earthquake.getMagnitude()));
+        magnitude.setText(doubleToOneDecimalString(earthquake.getMagnitude()));
 
         String place = earthquake.getPlace();
         String distance = getContext().getString(R.string.near_the);
@@ -74,11 +75,9 @@ public class EarthquakeAdapter extends ArrayAdapter<Earthquake> {
 
         TextView locationOffset = (TextView) itemView.findViewById(R.id.location_offset);
         locationOffset.setText(distance);
-        Log.d(LOG_TAG,"getView() - distance: " + distance);
 
         TextView primaryLocation = (TextView) itemView.findViewById(R.id.primary_location);
         primaryLocation.setText(location);
-        Log.d(LOG_TAG, "getView - location: " + location);
 
         TextView date = (TextView) itemView.findViewById(R.id.date);
         date.setText(dateToDateString(earthquake.getDate()));

@@ -8,6 +8,7 @@ package com.oz_heng.apps.android.quakereport;
 import android.util.Log;
 
 import java.text.DateFormat;
+import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -18,8 +19,9 @@ import java.util.Date;
 public class Helper {
     private static final String LOG_TAG = Helper.class.getName();
 
-    private static DateFormat dateFormat = new SimpleDateFormat("MMM dd, yyyy");
-    private static DateFormat timeFormat = new SimpleDateFormat("h:mm a");
+    private static final DateFormat dateFormat = new SimpleDateFormat("MMM dd, yyyy");
+    private static final DateFormat timeFormat = new SimpleDateFormat("h:mm a");
+    private static final DecimalFormat oneDecimalFormat = new DecimalFormat("0.0");
 
     /**
      * Return a {@link Date} object from a String input
@@ -52,7 +54,6 @@ public class Helper {
      * @return a string
      */
     public static String dateToDateString(Date date) {
-
         return date != null ? dateFormat.format(date) : "";
     }
 
@@ -64,8 +65,17 @@ public class Helper {
      * @return a string
      */
     public static String dateToTimeString(Date date) {
-
         return date != null ? timeFormat.format(date) : "";
     }
 
+    /**
+     * Return the formatted string showing 1 decimal place (i.e. "3.2") from
+     * a decimal value
+     * @param d: a double value
+     * @return a string
+     */
+
+    public static String doubleToOneDecimalString(double d) {
+        return oneDecimalFormat.format(d);
+    }
 }

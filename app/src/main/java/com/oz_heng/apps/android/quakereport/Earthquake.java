@@ -1,5 +1,7 @@
 package com.oz_heng.apps.android.quakereport;
 
+import android.content.Context;
+
 import java.util.Date;
 
 /**
@@ -12,8 +14,7 @@ public class Earthquake {
     private String mPlace = "";
     private Date mDate;
 
-    private static final String OF = "of";
-    private static final String NEAR_THE = "Near the";
+    private static final String SEPARATOR_OF = " of ";
 
 
     /**
@@ -48,39 +49,6 @@ public class Earthquake {
      */
     public Date getDate() {
         return mDate;
-    }
-
-    /**
-     * Return the subtstring of mPlace up to and is inclusive of the OF string, or the NEAR_THE string if
-     * mPlace doesn't include the OF string
-     *
-     * @return a string
-     */
-    public String getLocationOffset() {
-        String locationOffset = NEAR_THE;
-
-        int index = mPlace.indexOf(OF);
-        if (index != -1) {
-            locationOffset = mPlace.substring(0, index + OF.length());
-        }
-
-        return locationOffset;
-    }
-
-    /**
-     * Return the substring of mPlace following but excluding the OF string
-     *
-     * @return a string
-     */
-    public String getPrimaryLocation() {
-        String primaryLocation = mPlace;
-
-        int index = mPlace.indexOf(OF);
-        if (index != -1) {
-         primaryLocation = mPlace.substring(index + OF.length() +1, mPlace.length());
-        }
-
-        return primaryLocation;
     }
 
 }

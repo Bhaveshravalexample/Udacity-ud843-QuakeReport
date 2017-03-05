@@ -29,6 +29,9 @@ import static com.oz_heng.apps.android.quakereport.Helper.dateToDateString;
 public class EarthquakeAdapter extends ArrayAdapter<Earthquake> {
     private static final String LOG_TAG = EarthquakeAdapter.class.getName();
 
+    private static final String SEPARATOR_OF = " of ";
+
+
     /**
      * Constructs a new {@link EarthquakeAdapter}.
      *
@@ -60,13 +63,22 @@ public class EarthquakeAdapter extends ArrayAdapter<Earthquake> {
         TextView magnitude = (TextView) itemView.findViewById(R.id.magnitude);
         magnitude.setText(String.format("%1$.1f", earthquake.getMagnitude()));
 
+        String place = earthquake.getPlace();
+        String distance = getContext().getString(R.string.near_the);
+        String location = place;
+
+        if (place.contains(SEPARATOR_OF)) {
+            distance = place.split(SEPARATOR_OF)[0] + SEPARATOR_OF;
+            location = place.split(SEPARATOR_OF)[1];
+        }
+
         TextView locationOffset = (TextView) itemView.findViewById(R.id.location_offset);
-        locationOffset.setText(earthquake.getLocationOffset());
-        Log.d(LOG_TAG,"getView() - earthquake.getLocationOffset(): " + earthquake.getLocationOffset());
+        locationOffset.setText(distance);
+        Log.d(LOG_TAG,"getView() - distance: " + distance);
 
         TextView primaryLocation = (TextView) itemView.findViewById(R.id.primary_location);
-        primaryLocation.setText(earthquake.getPrimaryLocation());
-        Log.d(LOG_TAG, "getView - earthquake.getPrimaryLocation(): " + earthquake.getPrimaryLocation());
+        primaryLocation.setText(location);
+        Log.d(LOG_TAG, "getView - location: " + location);
 
         TextView date = (TextView) itemView.findViewById(R.id.date);
         date.setText(dateToDateString(earthquake.getDate()));

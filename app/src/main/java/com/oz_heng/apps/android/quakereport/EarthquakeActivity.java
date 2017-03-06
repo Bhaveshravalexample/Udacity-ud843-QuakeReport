@@ -15,9 +15,13 @@
  */
 package com.oz_heng.apps.android.quakereport;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
 
 import java.util.ArrayList;
@@ -33,17 +37,33 @@ public class EarthquakeActivity extends AppCompatActivity {
         setContentView(R.layout.earthquake_activity);
 
         // Get the list of earthquakes from {@link QueryUtils}
-        ArrayList<Earthquake> earthquakes = QueryUtils.extractEarthquakes();
+        final ArrayList<Earthquake> earthquakes = QueryUtils.extractEarthquakes();
 
         // Find a reference to the {@link ListView} in the layout
         ListView earthquakeListView = (ListView) findViewById(R.id.list);
 
         // Create a new adapter that takes the list of earthquakes as input
-        EarthquakeAdapter earthquakeAdapter = new EarthquakeAdapter(this, earthquakes);
+        final EarthquakeAdapter earthquakeAdapter = new EarthquakeAdapter(this, earthquakes);
 
         // Set the adapter on the {@link ListView} so the list can be populated in
         // the user interface
         earthquakeListView.setAdapter(earthquakeAdapter);
+
+        // Set a click listener to open the webpage url to see additional details on the
+        // earthquake the user clicks on
+        earthquakeListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                // Find the current earthquake that was clicked on
+                Earthquake earthquake = earthquakeAdapter.getItem(i);
+
+                // Create an implicit itent to view the earthquake URI
+                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(earthquake.getUrl()));
+
+                // Send the intent to launch a new activity
+                startActivity(intent);
+            }
+        });
     }
 
 }

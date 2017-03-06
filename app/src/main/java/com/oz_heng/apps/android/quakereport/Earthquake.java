@@ -13,6 +13,7 @@ public class Earthquake {
     private double mMagnitude = 0;
     private String mPlace = "";
     private Date mDate;
+    String mUrl = "";
 
     private static final String SEPARATOR_OF = " of ";
 
@@ -24,10 +25,11 @@ public class Earthquake {
      * @param place         Place of the earthquake
      * @param date          Unix time when the earthquake happened
      */
-    public Earthquake (double magnitude, String place, Date date) {
+    public Earthquake (double magnitude, String place, Date date, String url) {
         mMagnitude = magnitude;
         mPlace = place;
         mDate = date;
+        mUrl = url;
     }
 
     /**
@@ -49,6 +51,13 @@ public class Earthquake {
      */
     public Date getDate() {
         return mDate;
+    }
+
+    /**
+     * Return a string that is an USGS website page for that earthquake
+     */
+    public String getUrl() {
+        return mUrl;
     }
 
 }

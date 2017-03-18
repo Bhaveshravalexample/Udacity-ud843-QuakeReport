@@ -17,6 +17,7 @@ import java.net.URLStreamHandler;
 import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import static java.lang.String.format;
 
@@ -35,21 +36,24 @@ public final class QueryUtils {
     }
 
     /**
-     * Query the USGS dataset and return a {@link ArrayList} of {@link Earthquake} objects.
+     * Query the USGS dataset and return a {@link List} of {@link Earthquake} objects.
      *
      * @param urlString
      * @return
      */
-    public static ArrayList<Earthquake> fetchEarthquakeData(String urlString) {
+    public static List<Earthquake> fetchEarthquakeData(String urlString) {
+        // Create URL object
         URL url = createUrl(urlString);
-        String jsonResponse = null;
 
+        // Perform HTTP request to the URL and receive a JSON response back
+        String jsonResponse = null;
         try {
             jsonResponse = makeHttpRequest(url);
         } catch (IOException e) {
-            Log.e(LOG_TAG, "Error closing input stream", e);
+            Log.e(LOG_TAG, "Problem making the HTTP request.", e);
         }
 
+        //  Return the list of {@link Earthquake}s extracted from the JSON response
         return extractEarthquakesFromJson(jsonResponse);
     }
 
@@ -68,6 +72,7 @@ public final class QueryUtils {
         catch (MalformedURLException e) {
             Log.e(LOG_TAG, "Error with creating url", e);
         }
+
         return url;
     }
 
@@ -83,7 +88,6 @@ public final class QueryUtils {
 
         // if the url argument is null then return early.
         if (url == null) {
-            Log.e(LOG_TAG, "makeHttpRequest: given url is null");
             return jsonResponse;
         }
 
@@ -92,25 +96,29 @@ public final class QueryUtils {
 
         try {
             httpURLConnection = (HttpURLConnection) url.openConnection();
-            httpURLConnection.setReadTimeout(2000 /* milliseconds */);
-            httpURLConnection.setConnectTimeout(3000 /* milliseconds */);
+            httpURLConnection.setReadTimeout(2000 /* milliseconds */);      // Instead of 1000 milliseconds
+            httpURLConnection.setConnectTimeout(3000 /* milliseconds */);   // Instead of 1500 milliseconds
             httpURLConnection.setRequestMethod("GET");
             httpURLConnection.connect();
 
-            // If the request is successful (response code 200)
+            // If the request is successful (response code HttpURLConnection.HTTP_OK)
             // then read the input stream and parse the response
-            int responseCode = httpURLConnection.getResponseCode();
-            if (responseCode == 200) {
+            if (httpURLConnection.getResponseCode() == HttpURLConnection.HTTP_OK) {
                 inputStream = httpURLConnection.getInputStream();
                 jsonResponse = readFromInputStream(inputStream);
+            } else {
+                Log.e(LOG_TAG, "Error response code: " + httpURLConnection.getResponseCode());
             }
         } catch (IOException e) {
-            Log.e(LOG_TAG, "Problem in retrieving the JSON result from the url", e);
+            Log.e(LOG_TAG, "Problem in retrieving the JSON result from the url.", e);
         } finally {
             if (httpURLConnection != null) {
                 httpURLConnection.disconnect();
             }
             if (inputStream != null) {
+                // Closing the input stream could throw an IOException, which is why
+                // the makeHttpRequest(URL url) method signature specifies than an IOException
+                // could be thrown.
                 inputStream.close();
             }
         }
@@ -137,10 +145,14 @@ public final class QueryUtils {
     }
 
     /**
-     * Return an {@link ArrayList} of {@link Earthquake} objects that has been built up from
+     * Return an {@link List} of {@link Earthquake} objects that has been built up from
      * parsing a JSON response.
      */
-    private static ArrayList<Earthquake> extractEarthquakesFromJson(String earthquakesJson) {
+    private static List<Earthquake> extractEarthquakesFromJson(String earthquakesJson) {
+        // If the JSON string is empty or null, then return early.
+        if (earthquakesJson.isEmpty()) {
+            return null;
+        }
 
         // The items that need to be parsed out of the JSON response
         final String FEATURES = "features";
@@ -151,7 +163,7 @@ public final class QueryUtils {
         final String URL = "url";
 
         // Create an empty ArrayList that we can start adding earthquakes to
-        ArrayList<Earthquake> earthquakes = new ArrayList<Earthquake>();
+        List<Earthquake> earthquakes = new ArrayList<>();
 
         // Try to parse the SAMPLE_JSON_RESPONSE. If there's a problem with the way the JSON
         // is formatted, a JSONException exception object will be thrown.
@@ -166,7 +178,7 @@ public final class QueryUtils {
             JSONArray features = baseJsonResponse.getJSONArray(FEATURES);
 
             // For each item of the "features" array. reach the JSONObject "properties" and extract
-            // the magnitude, primary_location and date data, and add them into the earthquake list.
+            // the magnitude, place and date data, and add them into the earthquake list.
             for (int i = 0; i < features.length(); i++) {
                 JSONObject properties = features.getJSONObject(i).getJSONObject(PROPERTIES);
 
@@ -183,7 +195,7 @@ public final class QueryUtils {
             // If an error is thrown when executing any of the above statements in the "try" block,
             // catch the exception here, so the app doesn't crash. Print a log message
             // with the message from the exception.
-            Log.e("QueryUtils", "Problem parsing the earthquake JSON results", e);
+            Log.e(LOG_TAG, "Problem parsing the earthquake JSON results.", e);
         }
 
         // Return the list of earthquakes

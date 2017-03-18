@@ -38,9 +38,8 @@ public class EarthquakeAdapter extends ArrayAdapter<Earthquake> {
 
     /**
      * Constructs a new {@link EarthquakeAdapter}.
-     *
-     * @param context: context of the app
-     * @param earthquakes: the list of earthquakes, which is the data source of the adpater
+     *  @param context : context of the app
+     * @param earthquakes : the list of earthquakes, which is the data source of the adpater
      */
     public EarthquakeAdapter(Context context, ArrayList<Earthquake> earthquakes) {
         super(context, 0, earthquakes);

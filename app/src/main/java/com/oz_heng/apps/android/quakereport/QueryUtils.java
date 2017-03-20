@@ -42,6 +42,9 @@ public final class QueryUtils {
      * @return
      */
     public static List<Earthquake> fetchEarthquakeData(String urlString) {
+
+        Log.v(LOG_TAG, "VERIFY: extractEarthquakesFromJson() called ...");
+
         // Create URL object
         URL url = createUrl(urlString);
 

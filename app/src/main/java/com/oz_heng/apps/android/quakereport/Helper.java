@@ -17,7 +17,7 @@ import java.util.Date;
  * Class with helper methods
  */
 public class Helper {
-    private static final String LOG_TAG = Helper.class.getName();
+    private static final String LOG_TAG = Helper.class.getSimpleName();
 
     private static final DateFormat dateFormat = new SimpleDateFormat("MMM dd, yyyy");
     private static final DateFormat timeFormat = new SimpleDateFormat("h:mm a");

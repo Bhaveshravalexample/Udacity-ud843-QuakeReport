@@ -31,7 +31,7 @@ import android.graphics.drawable.GradientDrawable;
  * to be displayed to the user.
  */
 public class EarthquakeAdapter extends ArrayAdapter<Earthquake> {
-    private static final String LOG_TAG = EarthquakeAdapter.class.getName();
+    private static final String LOG_TAG = EarthquakeAdapter.class.getSimpleName();
 
     private static final String SEPARATOR_OF = " of ";
 

@@ -1,10 +1,7 @@
 package com.oz_heng.apps.android.quakereport;
 
 import android.content.AsyncTaskLoader;
-import android.app.LoaderManager;
 import android.content.Context;
-import android.util.Log;
-
 import java.util.List;
 
 
@@ -13,20 +10,45 @@ import java.util.List;
  * pack@oz-heng.com
  */
 
+/**
+ * Loads a list of earthquakes by using an AsyncTask to perform the
+ * network request to the given URL.
+ */
 public class EarthquakeLoader extends AsyncTaskLoader<List<Earthquake>> {
     private static final String LOG_TAG = EarthquakeLoader.class.getSimpleName();
 
-    /** URL to query the USGS dataset for earthquake information */
-    private static final String USGS_REQUEST_URL = "https://earthquake.usgs.gov/fdsnws/event/1/query?format=geojson&eventtype=earthquake&orderby=time&minmag=5&limit=10";
+    /** Query URL */
+    private String mUrl;
 
-
-    public EarthquakeLoader(Context context) {
+    /**
+     * Constructs a new {@link EarthquakeLoader}
+     * @param context context of the activity
+     * @param url to load the data from
+     */
+    public EarthquakeLoader(Context context, String url) {
         super(context);
+        mUrl = url;
     }
 
+    /**
+     * Is called in in a backaground thread to fetch earthquake data from USGS server
+     * @return
+     */
     @Override
     public List<Earthquake> loadInBackground() {
-        Log.v(LOG_TAG, "EarthquakeLoader.loadInBackground().");
-        return QueryUtils.fetchEarthquakeData(USGS_REQUEST_URL);
+        if (mUrl == null) {
+            return null;
+        }
+
+        // Returns the list of earthquakes fetched from the network request to USGS server.
+        return QueryUtils.fetchEarthquakeData(mUrl);
+    }
+
+    /**
+     * Handles a request to start the Loader.
+     */
+    @Override
+    protected void onStartLoading() {
+        forceLoad();
     }
 }

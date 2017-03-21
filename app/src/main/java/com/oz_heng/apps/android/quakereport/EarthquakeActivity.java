@@ -46,7 +46,8 @@ public class EarthquakeActivity extends AppCompatActivity implements LoaderManag
      */
     private static final int EARTHQUAKE_LOADER_ID = 1;
 
-    private boolean firstDataLoad = true;
+    /** TextView that is displayed when the list is empty */
+    private TextView mEmptyStateTextView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,9 +59,9 @@ public class EarthquakeActivity extends AppCompatActivity implements LoaderManag
         // Find a reference to the {@link ListView} in the layout
         ListView earthquakeListView = (ListView) findViewById(R.id.list);
 
-        View emptyView = findViewById(R.id.empty_state_view);
+        mEmptyStateTextView = (TextView) findViewById(R.id.empty_view);
 
-        earthquakeListView.setEmptyView(emptyView);
+        earthquakeListView.setEmptyView(mEmptyStateTextView);
 
         // Create a new adapter that takes the list of earthquakes as input
         mEarthquakeAdapter = new EarthquakeAdapter(this, new ArrayList<Earthquake>());
@@ -151,11 +152,11 @@ public class EarthquakeActivity extends AppCompatActivity implements LoaderManag
 
         // If there is a valid list of {@link Earthquake}s, then add them to the adapter's
         // data set. This will trigger the ListView to update.
+        // Else set empty state textview to display "No earthquakes data found."
         if (earthquakeList != null && !earthquakeList.isEmpty()) {
             mEarthquakeAdapter.addAll(earthquakeList);
         } else {
-            TextView emptyStateView = (TextView) findViewById(R.id.empty_state_view);
-            emptyStateView.setText(getResources().getString(R.string.no_earthquake_data));
+            mEmptyStateTextView.setText(getResources().getString(R.string.no_earthquake_data));
         }
     }
 

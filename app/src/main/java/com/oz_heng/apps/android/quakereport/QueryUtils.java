@@ -45,6 +45,12 @@ public final class QueryUtils {
 
         Log.v(LOG_TAG, "VERIFY: extractEarthquakesFromJson() called ...");
 
+        try {
+            Thread.sleep(2000 /** milliseconds */);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
         // Create URL object
         URL url = createUrl(urlString);
 

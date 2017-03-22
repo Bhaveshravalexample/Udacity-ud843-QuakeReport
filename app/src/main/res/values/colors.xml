@@ -21,7 +21,8 @@
     <color name="colorPrimaryDark">#23303D</color>
 
     <!-- Accent color of the app -->
-    <color name="colorAccent">#10CAC9</color>
+    <!--<color name="colorAccent">#10CAC9</color>-->
+    <color name="colorAccent">#4689C8</color>
 
     <!-- Color for an earthquake with magnitude 0 and 2 -->
     <color name="magnitude1">#4A7BA7</color>

@@ -25,6 +25,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -49,6 +50,9 @@ public class EarthquakeActivity extends AppCompatActivity implements LoaderManag
     /** TextView that is displayed when the list is empty */
     private TextView mEmptyStateTextView;
 
+    /** Progress bar that is displayed when there's a delay in loading data */
+    private ProgressBar mProgressBar;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         Log.v(LOG_TAG, "VERIFY: onCreate() called.");
@@ -60,6 +64,8 @@ public class EarthquakeActivity extends AppCompatActivity implements LoaderManag
         ListView earthquakeListView = (ListView) findViewById(R.id.list);
 
         mEmptyStateTextView = (TextView) findViewById(R.id.empty_view);
+
+        mProgressBar = (ProgressBar) findViewById(R.id.loading_spinner);
 
         earthquakeListView.setEmptyView(mEmptyStateTextView);
 
@@ -146,6 +152,9 @@ public class EarthquakeActivity extends AppCompatActivity implements LoaderManag
     @Override
     public void onLoadFinished(Loader<List<Earthquake>> loader, List<Earthquake> earthquakeList) {
         Log.v(LOG_TAG, "VERIFY: onLoadFinished() called ...");
+
+        // Hide the progress bar when onLoadFinished() is called
+        mProgressBar.setVisibility(View.GONE);
 
         // Clear the adapter of previous earthquake data
         mEarthquakeAdapter.clear();

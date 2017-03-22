@@ -50,9 +50,6 @@ public class EarthquakeActivity extends AppCompatActivity implements LoaderManag
     /** TextView that is displayed when the list is empty */
     private TextView mEmptyStateTextView;
 
-    /** Progress bar that is displayed when there's a delay in loading data */
-    private ProgressBar mProgressBar;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         Log.v(LOG_TAG, "VERIFY: onCreate() called.");
@@ -64,8 +61,6 @@ public class EarthquakeActivity extends AppCompatActivity implements LoaderManag
         ListView earthquakeListView = (ListView) findViewById(R.id.list);
 
         mEmptyStateTextView = (TextView) findViewById(R.id.empty_view);
-
-        mProgressBar = (ProgressBar) findViewById(R.id.loading_spinner);
 
         earthquakeListView.setEmptyView(mEmptyStateTextView);
 
@@ -153,8 +148,9 @@ public class EarthquakeActivity extends AppCompatActivity implements LoaderManag
     public void onLoadFinished(Loader<List<Earthquake>> loader, List<Earthquake> earthquakeList) {
         Log.v(LOG_TAG, "VERIFY: onLoadFinished() called ...");
 
-        // Hide the progress bar when onLoadFinished() is called
-        mProgressBar.setVisibility(View.GONE);
+        // Hide loading indicator because the data has been loaded
+        View progressBar = findViewById(R.id.loading_spinner);
+        progressBar.setVisibility(View.GONE);
 
         // Clear the adapter of previous earthquake data
         mEarthquakeAdapter.clear();

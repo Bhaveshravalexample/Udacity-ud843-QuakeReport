@@ -36,6 +36,8 @@
         tools:text="@string/no_earthquake_data"
         android:textAppearance="?android:textAppearanceMedium"/>
 
+    <!-- Loading indicator is only shown before the first load -->
+    <!-- The style “@style/Widget.AppCompat.ProgressBar” makes the ProgressBar appear as a circular loading indicator.-->
     <ProgressBar
         android:id="@+id/loading_spinner"
         style="@style/Widget.AppCompat.ProgressBar"

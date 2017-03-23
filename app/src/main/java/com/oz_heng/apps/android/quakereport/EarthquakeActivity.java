@@ -87,16 +87,22 @@ public class EarthquakeActivity extends AppCompatActivity implements LoaderManag
             }
         });
 
-        // Start {@link EarthquakeLoader} to fetch the earthquake data.
+        if (ConnectivityUtils.isConnected(this)) {
+            // Start {@link EarthquakeLoader} to fetch the earthquake data.
 
-        // Get a reference to the LoaderManager, in order to interact with loaders.
-        LoaderManager loaderManager = getLoaderManager();
+            // Get a reference to the LoaderManager, in order to interact with loaders.
+            LoaderManager loaderManager = getLoaderManager();
 
-        // Initialize the loader. Pass in the int ID constant defined above and pass in null for
-        // the bundle. Pass in this activity for the LoaderCallbacks parameter (which is valid
-        // because this activity implements the LoaderCallbacks interface).
-        Log.v(LOG_TAG, "VERIFY: calling initLoader() ...");
-        loaderManager.initLoader(EARTHQUAKE_LOADER_ID, null, this);
+            // Initialize the loader. Pass in the int ID constant defined above and pass in null for
+            // the bundle. Pass in this activity for the LoaderCallbacks parameter (which is valid
+            // because this activity implements the LoaderCallbacks interface).
+            Log.v(LOG_TAG, "VERIFY: calling initLoader() ...");
+            loaderManager.initLoader(EARTHQUAKE_LOADER_ID, null, this);
+        } else {
+            View progressBar = findViewById(R.id.loading_spinner);
+            progressBar.setVisibility(View.GONE);
+            mEmptyStateTextView.setText(getText(R.string.no_internet_conecction));
+        }
     }
 
     @Override

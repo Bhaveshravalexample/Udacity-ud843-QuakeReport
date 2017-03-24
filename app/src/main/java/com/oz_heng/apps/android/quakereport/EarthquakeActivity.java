@@ -60,8 +60,8 @@ public class EarthquakeActivity extends AppCompatActivity implements LoaderManag
         // Find a reference to the {@link ListView} in the layout
         ListView earthquakeListView = (ListView) findViewById(R.id.list);
 
+        // Set the list view with an empty state view
         mEmptyStateTextView = (TextView) findViewById(R.id.empty_view);
-
         earthquakeListView.setEmptyView(mEmptyStateTextView);
 
         // Create a new adapter that takes the list of earthquakes as input
@@ -87,16 +87,15 @@ public class EarthquakeActivity extends AppCompatActivity implements LoaderManag
             }
         });
 
+        // If there's the network connectivity, Start {@link EarthquakeLoader} to fetch the
+        // earthquake data. Else, display the empty state view with "No Internet connection."
         if (ConnectivityUtils.isConnected(this)) {
-            // Start {@link EarthquakeLoader} to fetch the earthquake data.
-
             // Get a reference to the LoaderManager, in order to interact with loaders.
             LoaderManager loaderManager = getLoaderManager();
 
             // Initialize the loader. Pass in the int ID constant defined above and pass in null for
             // the bundle. Pass in this activity for the LoaderCallbacks parameter (which is valid
             // because this activity implements the LoaderCallbacks interface).
-            Log.v(LOG_TAG, "VERIFY: calling initLoader() ...");
             loaderManager.initLoader(EARTHQUAKE_LOADER_ID, null, this);
         } else {
             View progressBar = findViewById(R.id.loading_spinner);
@@ -106,54 +105,13 @@ public class EarthquakeActivity extends AppCompatActivity implements LoaderManag
     }
 
     @Override
-    protected void onStart() {
-        Log.v(LOG_TAG, "VERIFY: onStart() called ...");
-        super.onStart();
-    }
-
-    @Override
-    protected void onResume() {
-        Log.v(LOG_TAG, "VERIFY: onResume() called ...");
-        super.onResume();
-    }
-
-    @Override
-    protected void onPause() {
-        Log.v(LOG_TAG, "VERIFY: onPause() called ...");
-        super.onPause();
-    }
-
-    @Override
-    protected void onStop() {
-        Log.v(LOG_TAG, "VERIFY: onStop() called ...");
-        super.onStop();
-    }
-
-    @Override
-    protected void onRestart() {
-        Log.v(LOG_TAG, "VERIFY: onRestart() called ...");
-        super.onRestart();
-    }
-
-    @Override
-    protected void onDestroy() {
-        Log.v(LOG_TAG, "VERIFY: onDestroy() called ...");
-        super.onDestroy();
-    }
-
-
-    @Override
     public Loader<List<Earthquake>> onCreateLoader(int i, Bundle bundle) {
-        Log.v(LOG_TAG, "VERIFY: onCreateLoader() called.");
-
         // Create a new loader for the given URL
         return new EarthquakeLoader(this, USGS_REQUEST_URL);
     }
 
     @Override
     public void onLoadFinished(Loader<List<Earthquake>> loader, List<Earthquake> earthquakeList) {
-        Log.v(LOG_TAG, "VERIFY: onLoadFinished() called ...");
-
         // Hide loading indicator because the data has been loaded
         View progressBar = findViewById(R.id.loading_spinner);
         progressBar.setVisibility(View.GONE);
@@ -173,8 +131,6 @@ public class EarthquakeActivity extends AppCompatActivity implements LoaderManag
 
     @Override
     public void onLoaderReset(Loader<List<Earthquake>> loader) {
-        Log.v(LOG_TAG, "VERIFY: onLoaderReset() called ...");
-
         // Loader reset, so we can clear out our existing data.
         mEarthquakeAdapter.clear();
     }

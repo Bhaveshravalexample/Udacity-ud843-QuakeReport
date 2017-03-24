@@ -17,11 +17,16 @@ public final class ConnectivityUtils {
     private ConnectivityUtils() {
     }
 
+    /**
+     * Check the network connectivity.
+     *
+     * @param context the context of the activity
+     * @return true if there's a network connection
+     */
     public static boolean isConnected(Context context) {
         ConnectivityManager cm =
                 (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
         return activeNetwork != null && activeNetwork.isConnectedOrConnecting();
     }
-
 }

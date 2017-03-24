@@ -43,13 +43,12 @@ public final class QueryUtils {
      */
     public static List<Earthquake> fetchEarthquakeData(String urlString) {
 
-        Log.v(LOG_TAG, "VERIFY: extractEarthquakesFromJson() called ...");
-
-        try {
-            Thread.sleep(2000 /** milliseconds */);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+        // Fot testing loading indicator
+//        try {
+//            Thread.sleep(2000 /** milliseconds */);
+//        } catch (InterruptedException e) {
+//            e.printStackTrace();
+//        }
 
         // Create URL object
         URL url = createUrl(urlString);

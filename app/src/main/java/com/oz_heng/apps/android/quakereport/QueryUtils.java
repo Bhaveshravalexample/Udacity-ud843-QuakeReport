@@ -13,13 +13,10 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.net.URLStreamHandler;
 import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-
-import static java.lang.String.format;
 
 /**
  * Helper methods related to requesting and receiving earthquake data from USGS.

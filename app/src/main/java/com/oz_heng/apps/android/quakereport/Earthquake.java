@@ -1,7 +1,5 @@
 package com.oz_heng.apps.android.quakereport;
 
-import android.content.Context;
-
 import java.util.Date;
 
 /**

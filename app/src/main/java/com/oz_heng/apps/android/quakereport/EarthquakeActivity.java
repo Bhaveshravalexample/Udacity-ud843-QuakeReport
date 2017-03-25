@@ -18,8 +18,10 @@ package com.oz_heng.apps.android.quakereport;
 import android.app.LoaderManager;
 import android.content.Intent;
 import android.content.Loader;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Menu;
@@ -27,7 +29,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
-import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -38,7 +39,8 @@ public class EarthquakeActivity extends AppCompatActivity implements LoaderManag
     private static final String LOG_TAG = EarthquakeActivity.class.getSimpleName();
 
     /** URL to query the USGS dataset for earthquake information */
-    private static final String USGS_REQUEST_URL = "https://earthquake.usgs.gov/fdsnws/event/1/query?format=geojson&eventtype=earthquake&orderby=time&minmag=5&limit=10";
+//    private static final String USGS_REQUEST_URL = "https://earthquake.usgs.gov/fdsnws/event/1/query?format=geojson&eventtype=earthquake&orderby=time&minmag=5&limit=10";
+    private static final String USGS_REQUEST_URL = "https://earthquake.usgs.gov/fdsnws/event/1/query";
 
     // Return the list of {@link Earthquake}s
     private EarthquakeAdapter mEarthquakeAdapter;
@@ -108,8 +110,22 @@ public class EarthquakeActivity extends AppCompatActivity implements LoaderManag
 
     @Override
     public Loader<List<Earthquake>> onCreateLoader(int i, Bundle bundle) {
+
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+        String minMagnitude = sharedPreferences.getString(
+                getString(R.string.settings_min_magnitude_key),
+                getString(R.string.settings_min_magnitude_default));
+
+        Uri baseUri = Uri.parse(USGS_REQUEST_URL);
+        Uri.Builder uriBuilder = baseUri.buildUpon();
+
+        uriBuilder.appendQueryParameter("format", "geojson");
+        uriBuilder.appendQueryParameter("limit", "20");
+        uriBuilder.appendQueryParameter("minmag", minMagnitude);
+        uriBuilder.appendQueryParameter("orderby", "time");
+
         // Create a new loader for the given URL
-        return new EarthquakeLoader(this, USGS_REQUEST_URL);
+        return new EarthquakeLoader(this, uriBuilder.toString());
     }
 
     @Override

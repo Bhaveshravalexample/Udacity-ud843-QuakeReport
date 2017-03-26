@@ -91,8 +91,7 @@ public class EarthquakeActivity extends AppCompatActivity implements LoaderManag
             }
         });
 
-        // If there's the network connectivity, Start {@link EarthquakeLoader} to fetch the
-        // earthquake data. Else, display the empty state view with "No Internet connection."
+        // If there's a network connection, fetch the data
         if (ConnectivityUtils.isConnected(this)) {
             // Get a reference to the LoaderManager, in order to interact with loaders.
             LoaderManager loaderManager = getLoaderManager();
@@ -102,8 +101,12 @@ public class EarthquakeActivity extends AppCompatActivity implements LoaderManag
             // because this activity implements the LoaderCallbacks interface).
             loaderManager.initLoader(EARTHQUAKE_LOADER_ID, null, this);
         } else {
+            // Otherwise, display error
+            // First, hide loading indicator so error message will be visible
             View progressBar = findViewById(R.id.loading_spinner);
             progressBar.setVisibility(View.GONE);
+
+            // Update empty state with no connection error message
             mEmptyStateTextView.setText(getText(R.string.no_internet_conecction));
         }
     }
@@ -115,6 +118,9 @@ public class EarthquakeActivity extends AppCompatActivity implements LoaderManag
         String minMagnitude = sharedPreferences.getString(
                 getString(R.string.settings_min_magnitude_key),
                 getString(R.string.settings_min_magnitude_default));
+        String orderBy = sharedPreferences.getString(
+                getString(R.string.settings_order_by_key),
+                getString(R.string.settings_order_by_default));
 
         Uri baseUri = Uri.parse(USGS_REQUEST_URL);
         Uri.Builder uriBuilder = baseUri.buildUpon();
@@ -122,7 +128,7 @@ public class EarthquakeActivity extends AppCompatActivity implements LoaderManag
         uriBuilder.appendQueryParameter("format", "geojson");
         uriBuilder.appendQueryParameter("limit", "20");
         uriBuilder.appendQueryParameter("minmag", minMagnitude);
-        uriBuilder.appendQueryParameter("orderby", "time");
+        uriBuilder.appendQueryParameter("orderby", orderBy);
 
         // Create a new loader for the given URL
         return new EarthquakeLoader(this, uriBuilder.toString());
